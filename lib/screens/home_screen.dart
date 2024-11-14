@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:prevent_screenshot_tutorial/services/ScreenRecordingService.dart';
 import 'package:screen_protector/screen_protector.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -22,9 +25,34 @@ class HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     ),
   );
 
+  Timer? checkTimer;
+
+  Future<void> checkAndMuteAudioiOS() async {
+    var recordingStatus = await ScreenProtector.isRecording();
+    setState(() {
+      isRecording = recordingStatus;
+      isActive = true;
+    });
+
+    if (isRecording) {
+      _controller.mute();
+    } else {
+      _controller.unMute();
+    }
+  }
+
+  Future<void> checkAndMuteAudioAndroid() async {
+    ScreenRecordingService.startScreenRecordingListener(() {
+      _controller.mute();
+    }, () {
+      _controller.unMute();
+    });
+  }
+
   void _preventRecording() async {
     if (Platform.isAndroid) {
       await ScreenProtector.protectDataLeakageOn();
+      checkAndMuteAudioAndroid();
     } else if (Platform.isIOS) {
       await ScreenProtector.preventScreenshotOn();
     }
@@ -48,17 +76,7 @@ class HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       // Code to run when returning from Control Center
       debugPrint("App is resumed");
       if (Platform.isIOS) {
-        var recordingStatus = await ScreenProtector.isRecording();
-        setState(() {
-          isRecording = recordingStatus;
-          isActive = true;
-        });
-
-        if (isRecording) {
-          _controller.mute();
-        } else {
-          _controller.unMute();
-        }
+        checkAndMuteAudioiOS();
       }
     }
   }
