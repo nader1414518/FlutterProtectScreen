@@ -1,0 +1,29 @@
+name: prevent_screenshot_tutorial
+description: "Prevent Screenshot & Screen recording tutorial"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.0-197.0.dev
+
+dependencies:
+  flutter:
+    sdk: flutter
+  youtube_player_flutter: ^9.1.1
+  screen_protector: ^1.4.2+1
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  flutter_lints: ^4.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
