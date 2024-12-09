@@ -31,14 +31,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <service
-            android:name=".MyNotificationListenerService"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" />
-            </intent-filter>
-        </service>
-
         <!-- <service
             android:name=".ScreenRecordingListenerService"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
@@ -55,6 +47,16 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service> -->
+        
+        <service
+            android:name=".ActiveNotificationServiceListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        
         <service 
             android:label="notifications" 
             android:name="notification.listener.service.NotificationListener"
