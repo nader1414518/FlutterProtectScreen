@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:notification_listener_service/notification_listener_service.dart';
 import 'package:prevent_screenshot_tutorial/services/ActiveNotificationListenerService.dart';
 import 'package:prevent_screenshot_tutorial/services/ScreenRecordingService.dart';
 import 'package:screen_protector/screen_protector.dart';
@@ -30,8 +31,17 @@ class HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
   Future<void> getActiveNotifications() async {
     try {
-      var res =
-          await ActiveNotificationListenerService.getActiveNotifications();
+      // var res = await NotificationListenerService.notificationsStream.toList();
+      // for (var n in res) {
+      //   print("Notification Title: >>>>>>>>>>>>>>>>>>>>>>>>>> ");
+      //   print(n.title);
+      // }
+      NotificationListenerService.notificationsStream.listen(
+        (ev) {
+          print("Notification Title");
+          print(ev.title);
+        },
+      );
     } catch (e) {
       print(e.toString());
     }
