@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 class ActiveNotificationServiceListener : NotificationListenerService() {
 
     companion object {
+        // Make the activeNotifications list mutable
         private val activeNotifications = mutableListOf<Map<String, String>>()
 
         fun getActiveNotifications(): List<Map<String, String>> {

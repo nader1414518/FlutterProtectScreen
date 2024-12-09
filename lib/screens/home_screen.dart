@@ -99,6 +99,8 @@ class HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
 
     _preventRecording();
+
+    getActiveNotifications();
   }
 
   @override
