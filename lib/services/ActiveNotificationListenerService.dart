@@ -1,8 +1,8 @@
 import 'package:flutter/services.dart';
 
-class Activenotificationlistenerservice {
+class ActiveNotificationListenerService {
   static const platform =
-      MethodChannel('com.example.my_flutter_app/notifications');
+      MethodChannel('com.yt.prevent_screenshot_tutorial/notifications');
 
   static Future<List<Map<String, String>>> getActiveNotifications() async {
     try {
